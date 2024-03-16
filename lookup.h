@@ -2,6 +2,7 @@
 #define LOOKUP_H
 
 #include <cstdint>
+#include <cassert>
 
 #define REPEAT(n) for (int repeat_index = 0; repeat_index < n; repeat_index++)
 

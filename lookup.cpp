@@ -15,6 +15,8 @@ const static uint8_t L_LAST_BIT[] = {
     128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255
 };
 uint8_t l_set_last_bit(uint8_t x, uint8_t one_bit) {
+    assert(one_bit <= 1);
+
     uint16_t index = x;
     uint8_t* index_p = reinterpret_cast<uint8_t*>(&index);
 
@@ -24,6 +26,9 @@ uint8_t l_set_last_bit(uint8_t x, uint8_t one_bit) {
 }
 
 uint8_t l_concat_bits(uint8_t one_a, uint8_t one_b) {
+    assert(one_a <= 1);
+    assert(one_b <= 1);
+
     uint8_t out = 0;
     out = l_set_last_bit(out, one_b);
     out = l_right_shift_one(out);
@@ -37,6 +42,9 @@ uint8_t l_concat_bits(uint8_t one_a, uint8_t one_b) {
 
 const static uint8_t L_XOR[] = { 0, 1, 1, 0 };
 uint8_t l_xor_bits(uint8_t one_a, uint8_t one_b) {
+    assert(one_a <= 1);
+    assert(one_b <= 1);
+
     uint8_t index = l_concat_bits(one_a, one_b);
 
     return L_XOR[index];
@@ -44,6 +52,9 @@ uint8_t l_xor_bits(uint8_t one_a, uint8_t one_b) {
 
 const static uint8_t L_AND[] = { 0, 0, 0, 1 };
 uint8_t l_and_bits(uint8_t one_a, uint8_t one_b) {
+    assert(one_a <= 1);
+    assert(one_b <= 1);
+
     uint8_t index = l_concat_bits(one_a, one_b);
 
     return L_AND[index];
@@ -51,6 +62,9 @@ uint8_t l_and_bits(uint8_t one_a, uint8_t one_b) {
 
 const static uint8_t L_OR[] = { 0, 1, 1, 1 };
 uint8_t l_or_bits(uint8_t one_a, uint8_t one_b) {
+    assert(one_a <= 1);
+    assert(one_b <= 1);
+
     uint8_t index = l_concat_bits(one_a, one_b);
 
     return L_OR[index];
@@ -77,6 +91,10 @@ uint8_t l_xor(uint8_t a, uint8_t b) {
 }
 
 void l_add_bits(uint8_t one_a, uint8_t one_b, uint8_t one_c, uint8_t* sum, uint8_t* carry) {
+    assert(one_a <= 1);
+    assert(one_b <= 1);
+    assert(one_c <= 1);
+
     *sum = l_xor_bits(l_xor_bits(one_a, one_b), one_c);
 
     uint8_t group1 = l_and_bits(one_a, one_b);
