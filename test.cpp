@@ -10,6 +10,10 @@ int main (int argc, char** argv) {
     }
 
     for (uint16_t i = 0; i < std::numeric_limits<uint8_t>::max(); i++) {
+        assert (((i >> 7) & 1) == l_get_last_bit(i));
+    }
+
+    for (uint16_t i = 0; i < std::numeric_limits<uint8_t>::max(); i++) {
         assert ((i >> 1) == l_right_shift_one(i));
     }
 
